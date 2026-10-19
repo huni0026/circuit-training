@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="서킷 트레이닝">
+  <meta name="theme-color" content="#1f6feb">
+  <title>서킷 트레이닝</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%231f6feb'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='white' font-family='sans-serif'>30</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="topbar" class="topbar">
+    <h1>서킷 트레이닝</h1>
+    <span id="netStatus" class="chip"></span>
+    <button id="btnSettings" class="btn">⚙ 설정</button>
+  </header>
+
+  <!-- 시작 화면 -->
+  <main id="home" class="view">
+    <nav id="dayTabs" class="day-tabs" aria-label="요일 선택"></nav>
+    <div class="home-grid">
+      <section class="card">
+        <h2 id="dayTheme"></h2>
+        <div id="dayBody"></div>
+      </section>
+      <section class="card summary-card">
+        <h3>운동 시간</h3>
+        <div id="summary"></div>
+        <button id="btnStart" class="btn btn-primary btn-big">▶ 운동 시작</button>
+        <p id="weekInfo" class="week-info"></p>
+      </section>
+    </div>
+  </main>
+
+  <!-- 타이머 화면 -->
+  <section id="timer" class="view timer" hidden>
+    <div class="t-top"><span id="tRound"></span><span id="tLeft"></span></div>
+    <div class="t-bar"><div id="tBarFill"></div></div>
+    <div class="t-center">
+      <span id="tPhase" class="t-phase"></span>
+      <div id="tName" class="t-name"></div>
+      <div id="tTip" class="t-tip"></div>
+      <div id="tCount" class="t-count"></div>
+      <div id="tSide" class="t-side"></div>
+      <div id="tNext" class="t-next"></div>
+    </div>
+    <div class="t-controls">
+      <button id="tPrev" class="t-btn">◀ 이전</button>
+      <button id="tPlay" class="t-btn t-play"></button>
+      <button id="tNextBtn" class="t-btn">다음 ▶</button>
+    </div>
+    <div class="t-controls t-sub">
+      <button id="tReset" class="t-btn small">처음부터</button>
+      <button id="tExit" class="t-btn small">그만하기</button>
+    </div>
+  </section>
+
+  <!-- 완료 화면 -->
+  <section id="done" class="view done" hidden>
+    <div class="done-box">
+      <div class="done-icon">✔</div>
+      <h2>운동 완료</h2>
+      <p id="doneDay"></p>
+      <p class="done-time-label">운동한 시간</p>
+      <p id="doneTime" class="done-time"></p>
+      <p id="doneWeek" class="week-info"></p>
+      <button id="btnDoneHome" class="btn btn-primary btn-big">처음 화면으로</button>
+    </div>
+  </section>
+
+  <!-- 예시 영상 -->
+  <div id="videoModal" class="modal" hidden>
+    <div class="sheet" role="dialog" aria-labelledby="videoTitle">
+      <div class="sheet-head">
+        <h2 id="videoTitle"></h2>
+        <button id="btnCloseVideo" class="btn">닫기</button>
+      </div>
+      <p class="hint">영상은 유튜브에서 열립니다. (인터넷 연결 필요)</p>
+      <div id="videoList" class="vid-list"></div>
+      <a id="videoSearch" class="btn vid-search" target="_blank" rel="noopener">🔍 유튜브에서 더 찾기</a>
+    </div>
+  </div>
+
+  <!-- 설정 -->
+  <div id="settingsModal" class="modal" hidden>
+    <div class="sheet" role="dialog" aria-label="설정">
+      <div class="sheet-head">
+        <h2>설정</h2>
+        <button id="btnCloseSettings" class="btn">닫기</button>
+      </div>
+
+      <div class="set-summary">
+        <div class="set-summary-head">전체 시간 <small id="setDayName"></small></div>
+        <div id="setSummary"></div>
+      </div>
+
+      <div id="setRows"></div>
+
+      <div class="set-group">소리</div>
+      <label class="set-row toggle"><span>효과음</span><input type="checkbox" id="optSound"></label>
+      <label class="set-row toggle"><span>음성 안내</span><input type="checkbox" id="optVoice"></label>
+      <div class="btn-row">
+        <button id="btnTestSound" class="btn">🔊 소리 테스트</button>
+        <button id="btnResetSettings" class="btn">시간 기본값으로</button>
+      </div>
+
+      <div class="set-group">데이터</div>
+      <p id="dataStatus" class="hint"></p>
+      <div class="btn-row">
+        <button id="btnExport" class="btn">JSON 내보내기</button>
+        <button id="btnImport" class="btn">JSON 불러오기</button>
+        <button id="btnClearHistory" class="btn btn-danger">기록 초기화</button>
+      </div>
+      <input type="file" id="importFile" accept=".json,application/json" hidden>
+    </div>
+  </div>
+
+  <script src="schedule.js"></script>
+  <script src="storage.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
